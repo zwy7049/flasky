@@ -34,6 +34,7 @@ class Role(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
+            'Reader': [Permission.FOLLOW, Permission.COMMENT],
             'User': [Permission.FOLLOW, Permission.COMMENT, Permission.WRITE],
             'Moderator': [Permission.FOLLOW, Permission.COMMENT,
                           Permission.WRITE, Permission.MODERATE],
@@ -41,7 +42,7 @@ class Role(db.Model):
                               Permission.WRITE, Permission.MODERATE,
                               Permission.ADMIN],
         }
-        default_role = 'User'
+        default_role = 'Reader'
         for r in roles:
             role = Role.query.filter_by(name=r).first()
             if role is None:
